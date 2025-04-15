@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VapeZone - Vapes y Accesorios</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #1d3461;    /* Azul profundo de fondo */
+            --color-secondary: #432874;  /* Púrpura medio */
+            --color-accent: #f4b942;     /* Amarillo dorado de las letras */
+            --color-dark: #0d1b2a;       /* Azul muy oscuro casi negro */
+            --color-light: #f0f2e9;      /* Color claro para contraste */
+            --color-success: #267365;    /* Verde selva/turquesa */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--color-light);
+            color: var(--color-dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            padding: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--color-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            background: var(--color-accent);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .hero {
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            animation: slideInLeft 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--color-accent);
+            color: var(--color-dark);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background: var(--color-accent);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--color-accent);
+            color: var(--color-accent);
+            margin-left: 15px;
+        }
+
+        /* Features */
+        .features {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--color-dark);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 4px;
+            border-radius: 2px;
+            background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--color-primary);
+        }
+
+        .feature-content {
+            padding: 30px;
+        }
+
+        .feature-content h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* Products */
+        .products {
+            padding: 80px 0;
+            background-color: var(--color-light);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-label {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--color-accent);
+            color: var(--color-dark);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-content {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .product-desc {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--color-success);
+            margin-bottom: 15px;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+            color: white;
+        }
+
+        .testimonial-container {
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .testimonial-slider {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .testimonial {
+            min-width: 100%;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .testimonial-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .testimonial-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .testimonial-dot.active {
+            background: white;
+        }
+
+        /* Contact */
+        .contact {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .contact-info {
+            margin-bottom: 30px;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .contact-details {
+            list-style: none;
+        }
+
+        .contact-details li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-details i {
+            margin-right: 15px;
+            width: 20px;
+            color: var(--color-primary);
+        }
+
+        .social-links {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: var(--color-light);
+            color: var(--color-primary);
+            border-radius: 50%;
+            margin-right: 15px;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background: var(--color-primary);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-dark);
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            font-size: 1.3rem;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 2px;
+            background: var(--color-primary);
+            left: 0;
+            bottom: -10px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-primary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            z-index: 100;
+            text-decoration: none;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        /* Animations */
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .animate-slide-left {
+            animation: slideInLeft 1s ease;
+        }
+
+        .animate-slide-right {
+            animation: slideInRight 1s ease;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1.2s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav-links {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-links li {
+                margin: 5px 10px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        /* Mobile Menu */
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                text-align: center;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                background: var(--color-dark);
+                z-index: 100;
+                padding: 20px 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-cloud"></i> VapeZone
+                </div>
+                <button class="mobile-toggle" id="mobile-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#home">Inicio</a></li>
+                    <li><a href="#products">Productos</a></li>
+                    <li><a href="#about">Nosotros</a></li>
+                    <li><a href="#contact">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="hero" id="home">
+                <h1>Descubre la Mejor Experiencia de Vapeo</h1>
+                <p>Conoce los dispositivos más innovadores y líquidos premium de nuestra colección.</p>
+                <div class="hero-btns">
+                    <a href="#products" class="btn btn-primary">Ver Catálogo</a>
+                    <a href="#contact" class="btn btn-outline">Más Información</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features -->
+    <section class="features" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestra Ventaja</h2>
+                <p>Calidad y variedad en cada producto</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-content">
+                        <div class="feature-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3>Sabores Exclusivos</h3>
+                        <p>Contamos con una amplia variedad de líquidos premium y sabores únicos desarrollados por
+                            expertos.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-content">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Calidad Garantizada</h3>
+                        <p>Todos nuestros productos cumplen con los más altos estándares de seguridad y control de
+                            calidad.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-content">
+                        <div class="feature-icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <h3>Envío Discreto</h3>
+                        <p>Empaquetado neutro y entrega rápida para mayor privacidad y comodidad.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products" id="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>Novedades en Vapeo</h2>
+                <p>Los dispositivos más modernos y líquidos premium</p>
+            </div>
+
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-label">TOP VENTAS</div>
+                    <img src="img/packspod-5000-tobacco-cream-device.webp" alt="Tobacco Cream" class="product-img">
+                    <div class="product-content">
+                        <h3 class="product-title">Tobacco Cream</h3>
+                        <p class="product-desc">
+                            Dispositivo desechable con 5000 puff. Batería de 1400mAh y tecnología Mesh Coil para nubes
+                            densas y sabor intenso. 5% de nicotina salina.
+                        </p>
+                        <div class="product-price">$120.00</div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-label">NUEVO</div>
+                    <img src="img/packspod-5000-dominican-grabba-device.webp" alt="Dominican grabbra"
+                        class="product-img">
+                    <div class="product-content">
+                        <h3 class="product-title">Dominican grabbra</h3>
+                        <p class="product-desc">
+                            Dispositivo desechable con 5000 puff. Batería de 1400mAh y tecnología Mesh Coil para nubes
+                            densas y sabor intenso. 5% de nicotina salina.
+                        </p>
+                        <div class="product-price">$120.00</div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-label">NUEVO</div>
+                    <img src="img/packspod-5000-sparkling-pomegranate-device.webp" alt="Sparkling pomegranate" class="product-img">
+                    <div class="product-content">
+                        <h3 class="product-title">Sparkling pomegranate</h3>
+                        <p class="product-desc">
+                            Dispositivo desechable con 5000 puff. Batería de 1400mAh y tecnología Mesh Coil para nubes
+                            densas y sabor intenso. 5% de nicotina salina.
+                        </p>
+                        <div class="product-price">$120.00</div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-label">NUEVO</div>
+                    <img src="img/packspod-5000-havana-gold-device.webp" alt="Habana gold" class="product-img">
+                    <div class="product-content">
+                        <h3 class="product-title">Habana gold</h3>
+                        <p class="product-desc">
+                            Dispositivo desechable con 5000 puff. Batería de 1400mAh y tecnología Mesh Coil para nubes
+                            densas y sabor intenso. 5% de nicotina salina.
+                        </p>
+                        <div class="product-price">$120.00</div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-label">NUEVO</div>
+                    <img src="img/packspod-5000-Sun-Cured-Cherry-Red-device.png" alt="Sun Cured Cherry Red" class="product-img">
+                    <div class="product-content">
+                        <h3 class="product-title">Sun Cured Cherry Red</h3>
+                        <p class="product-desc">
+                            Dispositivo desechable con 5000 puff. Batería de 1400mAh y tecnología Mesh Coil para nubes
+                            densas y sabor intenso. 5% de nicotina salina.
+                        </p>
+                        <div class="product-price">$120.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Lo que dicen nuestros clientes</h2>
+            </div>
+
+            <div class="testimonial-container">
+                <div class="testimonial-slider" id="testimonial-slider">
+                    <div class="testimonial">
+                        <p class="testimonial-text">"La mejor variedad de sabores que he encontrado. El servicio
+                            postventa es excelente y siempre tienen novedades."</p>
+                        <p class="testimonial-author">Andrea R. - Vapeadora por 3 años</p>
+                    </div>
+
+                    <div class="testimonial">
+                        <p class="testimonial-text">"Como ex-fumador, encontrar el sabor Dominican Grabba fue un game
+                            changer. La sensación es muy similar pero sin los efectos dañinos. Excelente servicio y
+                            entrega rápida."</p>
+                        <p class="testimonial-author">Miguel T. - Cliente frecuente</p>
+                    </div>
+
+                    <div class="testimonial">
+                        <p class="testimonial-text">"El Sparkling Pomegranate es mi debilidad. Nubes densas y sabor que perdura hasta la última calada. Nunca me ha fallado un producto de ustedes."</p>
+                        <p class="testimonial-author">Diego M. - Cloud chaser</p>
+                    </div>
+                </div>
+
+                <div class="testimonial-nav" id="testimonial-nav">
+                    <div class="testimonial-dot active" data-index="0"></div>
+                    <div class="testimonial-dot" data-index="1"></div>
+                    <div class="testimonial-dot" data-index="2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contáctanos</h2>
+                <p>¿Tienes preguntas? Estamos aquí para ayudarte</p>
+            </div>
+
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Información de Contacto</h3>
+                    <ul class="contact-details">
+                        <li><i class="fas fa-phone"></i> +52 477 384 5213</li>
+                        <li><i class="fas fa-clock"></i> Lunes a Viernes: 9am - 6pm</li>
+                    </ul>
+
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/lockslaw_?igsh=MWEwbGczbDFpODh4ag%3D%3D&utm_source=qr"
+                            class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>VapeZone</h3>
+                    <p>Tu proveedor confiable de dispositivos de vapeo y accesorios premium.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/lockslaw_?igsh=MWEwbGczbDFpODh4ag%3D%3D&utm_source=qr"
+                            class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Avisos Legales</h3>
+                    <ul class="footer-links">
+                        <li><a href="#edad">+18 años</a></li>
+                        <li><a href="#privacidad">Política de Privacidad</a></li>
+                        <li><a href="#terminos">Términos de Servicio</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                &copy; 2025 TropiStore. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/4773845213" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileToggle = document.getElementById('mobile-toggle');
+            const navLinks = document.getElementById('nav-links');
+
+            mobileToggle.addEventListener('click', function () {
+                navLinks.classList.toggle('active');
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                    }
+
+                    const href = this.getAttribute('href');
+                    const offsetTop = document.querySelector(href).offsetTop - 100;
+
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Testimonial Slider
+            const testimonialSlider = document.getElementById('testimonial-slider');
+            const testimonialDots = document.querySelectorAll('.testimonial-dot');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                testimonialSlider.style.transform = `translateX(-${index * 100}%)`;
+
+                // Update active dot
+                testimonialDots.forEach(dot => dot.classList.remove('active'));
+                testimonialDots[index].classList.add('active');
+
+                currentSlide = index;
+            }
+
+            // Add click event to dots
+            testimonialDots.forEach(dot => {
+                dot.addEventListener('click', function () {
+                    const slideIndex = this.getAttribute('data-index');
+                    showSlide(slideIndex);
+                });
+            });
+
+            // Auto slide
+            setInterval(() => {
+                let nextSlide = currentSlide + 1;
+                if (nextSlide >= testimonialDots.length) {
+                    nextSlide = 0;
+                }
+                showSlide(nextSlide);
+            }, 5000);
+
+            // Animate elements when they come into view
+            const animateElements = document.querySelectorAll('.feature-card, .product-card, .section-title');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+
+</html>
